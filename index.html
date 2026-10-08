@@ -921,51 +921,28 @@ will open directly in WhatsApp.
 </div>
 
 
-<form class="form" name="booking" method="POST" data-netlify="true" action="/">
+<form class="form" name="booking" method="POST" data-netlify="true" id="bookingForm">
 
     <input type="hidden" name="form-name" value="booking">
 
     <label>
         Your Name
-        <input 
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Enter your name"
-            required
-        >
+        <input id="name" name="name" type="text" placeholder="Enter your name" required>
     </label>
 
     <label>
         Phone Number
-        <input 
-            id="phone"
-            name="phone"
-            type="tel"
-            placeholder="01xxxxxxxx"
-            required
-        >
+        <input id="phone" name="phone" type="tel" placeholder="01xxxxxxxx" required>
     </label>
 
     <label>
         Email Address
-        <input 
-            id="email"
-            name="email"
-            type="email"
-            placeholder="yourname@gmail.com"
-            required
-        >
+        <input id="email" name="email" type="email" placeholder="yourname@gmail.com" required>
     </label>
 
     <label>
         Event Date
-        <input 
-            id="date"
-            name="date"
-            type="date"
-            required
-        >
+        <input id="date" name="date" type="date" required>
     </label>
 
     <label>
@@ -981,22 +958,12 @@ will open directly in WhatsApp.
 
     <label>
         Location
-        <input 
-            id="location"
-            name="location"
-            type="text"
-            placeholder="Event location"
-        >
+        <input id="location" name="location" type="text" placeholder="Event location">
     </label>
 
     <label>
         Message
-        <textarea 
-            id="message"
-            name="message"
-            rows="3"
-            placeholder="Tell us anything about your booking"
-        ></textarea>
+        <textarea id="message" name="message" rows="3" placeholder="Tell us anything about your booking"></textarea>
     </label>
 
     <button type="submit">
@@ -1004,6 +971,49 @@ will open directly in WhatsApp.
     </button>
 
 </form>
+
+<div id="bookingSuccess" style="display:none; text-align:center; padding:30px 15px;">
+    <div style="font-size:50px;">✅</div>
+
+    <h2 style="margin:10px 0;">Booking Submitted!</h2>
+
+    <p>
+        Thank you for your booking request.
+    </p>
+
+    <p>
+        We’ll contact you shortly to confirm your appointment.
+    </p>
+</div>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch("/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams(formData).toString()
+        });
+
+        if (response.ok) {
+            form.style.display = "none";
+            document.getElementById("bookingSuccess").style.display = "block";
+        } else {
+            alert("Something went wrong. Please try again.");
+        }
+
+    } catch (error) {
+        alert("Something went wrong. Please check your internet connection.");
+    }
+});
+</script>
 
 </div>
 
