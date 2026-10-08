@@ -921,52 +921,87 @@ will open directly in WhatsApp.
 </div>
 
 
-<form class="form" onsubmit="sendWhatsApp(event)">
+<form class="form" name="booking" method="POST" data-netlify="true">
 
-<label>
-Your Name
-<input id="name" type="text" placeholder="Enter your name" required>
-</label>
+    <input type="hidden" name="form-name" value="booking">
 
-<label>
-Phone Number
-<input id="phone" type="tel" placeholder="01xxxxxxxx" required>
-</label>
+    <label>
+        Your Name
+        <input 
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Enter your name"
+            required
+        >
+    </label>
 
-<label>
-Event Date
-<input id="date" type="date" required>
-</label>
+    <label>
+        Phone Number
+        <input 
+            id="phone"
+            name="phone"
+            type="tel"
+            placeholder="01xxxxxxxx"
+            required
+        >
+    </label>
 
-<label>
-Service
+    <label>
+        Email Address
+        <input 
+            id="email"
+            name="email"
+            type="email"
+            placeholder="yourname@gmail.com"
+            required
+        >
+    </label>
 
-<select id="service">
+    <label>
+        Event Date
+        <input 
+            id="date"
+            name="date"
+            type="date"
+            required
+        >
+    </label>
 
-<option>Bridal Mehendi</option>
-<option>Arabic Mehendi</option>
-<option>Party Mehendi</option>
-<option>Custom Design</option>
+    <label>
+        Service
+        <select id="service" name="service" required>
+            <option value="">Select a service</option>
+            <option value="Bridal Mehendi">Bridal Mehendi</option>
+            <option value="Arabic Mehendi">Arabic Mehendi</option>
+            <option value="Party Mehendi">Party Mehendi</option>
+            <option value="Custom Design">Custom Design</option>
+        </select>
+    </label>
 
-</select>
+    <label>
+        Location
+        <input 
+            id="location"
+            name="location"
+            type="text"
+            placeholder="Event location"
+        >
+    </label>
 
-</label>
+    <label>
+        Message
+        <textarea 
+            id="message"
+            name="message"
+            rows="3"
+            placeholder="Tell us anything about your booking"
+        ></textarea>
+    </label>
 
-<label>
-Location
-<input id="location" type="text" placeholder="Event location">
-</label>
-
-<label>
-Message
-<textarea id="message"
-rows="3"
-placeholder="Tell us anything about your booking"></textarea>
-</label>
-
-<button type="submit">
-Send Booking on WhatsApp ↗
-</button>
+    <button type="submit">
+        Send Booking Request ↗
+    </button>
 
 </form>
 
@@ -1006,76 +1041,10 @@ document.getElementById("nav")
 }
 
 
-function sendWhatsApp(event){
-
-event.preventDefault();
-
-/*
-CHANGE THIS NUMBER
-
-Example:
-01712345678
-
-Write:
-8801712345678
-*/
-
-const whatsappNumber = "8801336313240";
-
-
-const name =
-document.getElementById("name").value;
-
-const phone =
-document.getElementById("phone").value;
-
-const date =
-document.getElementById("date").value;
-
-const service =
-document.getElementById("service").value;
-
-const location =
-document.getElementById("location").value;
-
-const message =
-document.getElementById("message").value;
-
-
-const text =
-`Hello Henna Artistry by Maria!
-
-I want to make a booking.
-
-Name: ${name}
-Phone: ${phone}
-Event Date: ${date}
-Service: ${service}
-Location: ${location}
-Message: ${message}`;
-
-
-if(whatsappNumber.includes("X")){
-
-alert(
-"Please add the real WhatsApp number inside the code."
-);
-
-return;
-
+<script>
+function toggleMenu(){
+    document.getElementById("nav").classList.toggle("active");
 }
-
-
-window.open(
-"https://wa.me/" +
-whatsappNumber +
-"?text=" +
-encodeURIComponent(text),
-"_blank"
-);
-
-}
-
 </script>
 
 </body>
